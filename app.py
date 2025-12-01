@@ -594,7 +594,12 @@ def api_violations():
     return jsonify(violations_detail)
 
 if __name__ == '__main__':
-    logger.info("🚀 Traffic Violation Detection System Started!")
-    logger.info("🌐 http://localhost:5000")
+    port = int(os.environ.get('PORT', 5000))
+    host = os.environ.get('HOST', '0.0.0.0')
+    debug = os.environ.get('FLASK_ENV', 'production') == 'development'
+    
+    logger.info(f"🚀 Traffic Violation Detection System Started!")
+    logger.info(f"🌐 Server running on http://{host}:{port}")
     logger.info("📝 All data stored in memory (no database)")
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    
+    app.run(host=host, port=port, debug=debug)
